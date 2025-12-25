@@ -1,0 +1,1 @@
+# DOTNOTE. Real time Note sharing platform
