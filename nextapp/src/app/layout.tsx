@@ -49,8 +49,6 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <div className='fixed top-3 left-10'>
-        </div>
             {children}
           </ThemeProvider>
       </body>
