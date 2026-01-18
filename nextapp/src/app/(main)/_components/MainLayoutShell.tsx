@@ -37,7 +37,7 @@ const MainLayoutShell = ({ children }: { children: React.ReactNode }) => {
       </div>
 
       {/* Main Content Area */}
-      <div className={`${navbarCollapsed ? "px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64" : "pl-76 pr-4"} w-full transition-all duration-300`}>
+      <div className={`${navbarCollapsed ? "px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64" : "pl-2 md:pl-4 lg:pl-78 xl:pl-86 2xl:pl-102 pr-2 md:pr-4 lg:pr-8 xl:pr-16 2xl:pr-32"} w-full  transition-all duration-300`}>
         {children}
       </div>
     </div>
