@@ -11,6 +11,7 @@ import { toast } from 'sonner'
 import { set } from 'mongoose'
 import { add } from 'date-fns'
 import TextEditor from './_components/TextEditor'
+import { Textarea } from '@/components/ui/textarea'
 
 const CreateStory = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -164,11 +165,30 @@ const CreateStory = () => {
       })}
       </div>
 
+      {/* Short Description  */}
+      <div>
+        <Textarea placeholder='Write a short description (min. 40 words)'></Textarea>
+      </div>
+
+     
       {/* Text Editor  */}
 
       <div className='w-full'>
           <TextEditor setContent={setContent}/>
       </div>
+
+ {/* SUBMIT BUTTON  */}
+
+      <div className='mt-10 w-full flex justify-end'>
+        <div>
+          <Button>
+            Write Story
+          </Button>
+        </div>
+
+      </div>
+
+      
 
 
 

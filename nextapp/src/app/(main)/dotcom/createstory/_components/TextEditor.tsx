@@ -4,7 +4,7 @@ import { SimpleEditor } from '@/components/tiptap-templates/simple/simple-editor
 
 const TextEditor = ({setContent}:{setContent:any}) => {
   return (
-    <div className='w-full h-100'>
+    <div className='w-full'>
         <SimpleEditor setContent={setContent}/>
     </div>
   )
