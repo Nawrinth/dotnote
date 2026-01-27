@@ -16,7 +16,7 @@ import { Textarea } from '@/components/ui/textarea'
 const CreateStory = () => {
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<any>(null);
-  const [pins, setPins] = useState<string[]>([]);
+  const [pins, setPins] = useState<string []>([]);
   const [currentPin, setCurrentPin] = useState<string>("");
   const [otherPin, setOtherPin] = useState<string>("");
   const [content , setContent] = useState<string>("");
@@ -40,25 +40,35 @@ const CreateStory = () => {
     setPreview(null);
   };
   // Add category function
-  const addCategory = () => {
-      if (!currentPin)
-        return toast.error("Please select a category");
-      if (currentPin === "others" && otherPin.trim() === "")
-        return toast.error("Please enter a category");
+const addCategory = () => {
+  if (!currentPin)
+    return toast.error("Please select a category");
 
-      const categoryToAdd = currentPin === "others" ? otherPin : currentPin;
-      if (pins.includes(currentPin))
-        return toast.error("Category already added");
-      // {currentPin==="others" && pins.includes(otherPin) && toast.error("Category already added");}
-      // {currentPin==="others" && otherPin.trim()==="" && toast.error("Please enter a category");}
-      // {currentPin==="others" && otherPin.length>20 && toast.error("Category name too long");}
-      {pins.length>=5 && toast.error("Maximum 5 categories allowed");}
-      const addValue:string = currentPin==="others" ? otherPin : currentPin;
-      setPins((prev) => [...prev, addValue]);
-      setOtherPin("");
-      setCurrentPin("")
-      toast.success("Category added");
-  }
+  if (currentPin === "others" && otherPin.trim() === "")
+    return toast.error("Please enter a category");
+
+  if (pins.length >= 3)
+    return toast.error("Maximum 3 categories allowed");
+
+  const value = currentPin == "others"
+    ? otherPin
+    : currentPin;
+  console.log("value", value);
+  if (value.length > 20)
+    return toast.error("Category name too long");
+
+  if (pins.includes(value))
+    return toast.error("Category already added");
+
+  setPins((prev) => [...prev, value]); // ✅ SAFE
+  setOtherPin("");
+  setCurrentPin("");
+  toast.success("Category added");
+  console.log("pins", pins);
+};
+
+
+
 
   // Cleanup memory when component unmounts
   useEffect(() => {
@@ -143,7 +153,7 @@ const CreateStory = () => {
         {/* INPUT IF OTHERS  */}
 
         {(currentPin == "others") &&
-          <Input value={otherPin} onChange={(e)=>{console.log(e.target.value);setOtherPin(e.target.value)}} className='max-w-80 w-full' placeholder='Enter category' />
+          <Input value={otherPin} onChange={(e)=>{setOtherPin(e.target.value)}} className='max-w-80 w-full' placeholder='Enter category' />
         }
         {/* Add Button  */}
         <Button onClick={addCategory}>Add</Button>
@@ -153,8 +163,8 @@ const CreateStory = () => {
 
       {pins.map((pin, index) => {
         return (
-          <div key={index} className='w-fit inline-flex items-center gap-2 bg-accent rounded-full px-4 py-2'>
-            <p className='font-medium text-xs'>{predefinedCategory.find((item) => item.value === pin)?.name }</p>
+          <div key={index} className='w-fit justify-center flex items-center gap-2 bg-accent rounded-full px-4 py-2'>
+            <p className='font-medium text-xs'>{predefinedCategory.find((item) => item.value === pin)?.name || pin}</p>
             <button onClick={() => {
               setPins((prev) => prev.filter((p) => p !== pin));
             }}>
